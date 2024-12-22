@@ -1,0 +1,21 @@
+.message-content {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column; /* Ensure image and text are stacked vertically */
+  align-items: flex-start; /* Align both to the left */
+}
+
+.message-content img {
+  max-width: 200px;  /* Control image size */
+  max-height: 200px; /* Control image size */
+  margin-top: 10px;  /* Add space between the text and the image */
+}
+
+.message-container {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start; /* Align profile pic and text/image to the left */
+}
