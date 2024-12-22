@@ -30,6 +30,7 @@ const imageInput = document.getElementById("imageInput");
 const logoutButton = document.getElementById("logoutButton");
 const backButton = document.getElementById("backButton");
 const chatContainer = document.getElementById("chat");
+const notificationContainer = document.getElementById("notificationContainer"); // Container for notifications
 
 const channelButtons = document.querySelectorAll(".channelButton");
 
@@ -57,6 +58,7 @@ loginButton.addEventListener("click", () => {
         profilePicUrl = defaultProfilePics[token];
         loginDiv.classList.add("hidden");
         channelDiv.classList.remove("hidden");
+        showNotification(`${currentUser} logged in successfully!`, 'success');
       })
       .catch((error) => {
         alert("Error: " + error.message);
@@ -74,6 +76,7 @@ logoutButton.addEventListener("click", () => {
   channelDiv.classList.add("hidden");
   chatDiv.classList.add("hidden");
   chatContainer.innerHTML = ""; // Clear messages
+  showNotification(`Logged out successfully.`, 'info');
 });
 
 // Channel selection functionality
@@ -84,6 +87,7 @@ channelButtons.forEach(button => {
     chatDiv.classList.remove("hidden");
     chatContainer.innerHTML = ""; // Clear messages
     displayMessages();
+    showNotification(`Joined ${currentChannel} channel.`, 'success');
   });
 });
 
@@ -114,6 +118,7 @@ sendButton.addEventListener("click", () => {
     
     messageInput.value = ''; // Clear the input
     imageInput.value = '';  // Clear image URL input
+    showNotification(`Message sent to ${currentChannel}`, 'info');
   }
 });
 
@@ -130,20 +135,36 @@ function displayMessages() {
     profilePicElement.src = message.profilePic;
     profilePicElement.className = "profile-pic";
     messageElement.appendChild(profilePicElement);
-
-    const messageContent = document.createElement("div");
-    messageContent.classList.add("message-content");
-    messageContent.innerHTML = message.text || "";
     
+    // Display image if available
     if (message.imageUrl) {
       const imageElement = document.createElement("img");
       imageElement.src = message.imageUrl;
-      imageElement.style.maxWidth = '200px';  // Control image size
-      imageElement.style.maxHeight = '200px'; // Control image size
-      messageContent.appendChild(imageElement);
+      imageElement.style.maxWidth = "300px";
+      messageElement.appendChild(imageElement);
     }
 
-    messageElement.appendChild(messageContent);
+    // Display text message
+    if (message.text) {
+      const messageText = document.createElement("div");
+      messageText.classList.add("message-content");
+      messageText.textContent = `${message.username}: ${message.text}`;
+      messageElement.appendChild(messageText);
+    }
+
     chatContainer.appendChild(messageElement);
+    chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
   });
+}
+
+// Show notification
+function showNotification(message, type) {
+  const notification = document.createElement("div");
+  notification.classList.add("notification", type);
+  notification.textContent = message;
+  notificationContainer.appendChild(notification);
+
+  setTimeout(() => {
+    notification.remove();
+  }, 5000);
 }
