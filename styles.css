@@ -1,3 +1,4 @@
+/* General Styles */
 body {
   background-image: url('https://static.wikia.nocookie.net/048dc2b7-ee21-4f42-97ab-e457d2b6727d');
   background-size: cover;
@@ -5,10 +6,10 @@ body {
   background-attachment: fixed;
   font-family: Arial, sans-serif;
   color: #000000;
+  text-align: center;
 }
 
 #header {
-  text-align: center;
   margin: 20px 0;
 }
 
@@ -22,12 +23,22 @@ body {
   color: #fff;
 }
 
-.hidden {
-  display: none;
+#chat div {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+#chat img {
+  max-width: 50px;  /* Restrict image size */
+  max-height: 50px; /* Maintain image proportions */
+  margin-right: 10px;
+  border-radius: 50%;
 }
 
 .message-container {
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .message-content {
@@ -35,14 +46,9 @@ body {
   padding: 10px;
   border-radius: 5px;
   margin-top: 5px;
-}
-
-.profile-pic {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  max-width: 70%;
+  word-wrap: break-word;
   margin-right: 10px;
-  vertical-align: middle;
 }
 
 input, button {
@@ -62,8 +68,39 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Fix for image sizes */
+.hidden {
+  display: none;
+}
+
+/* Button Styles */
+#backButton {
+  background-color: #f0ad4e;
+}
+
+#logoutButton {
+  background-color: #d9534f;
+}
+
+input[type="text"] {
+  width: 60%;
+  margin-right: 5px;
+}
+
+/* Layout Fix for Messages */
 .message-container img {
-  max-width: 100%; /* Make sure images fit within the container */
-  height: auto;
+  max-width: 50px;  /* Ensure image size is constrained */
+}
+
+.message-container .message-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-content img {
+  margin-top: 5px;
+  max-width: 200px; /* Fix for large images */
+}
+
+.message-container .message-content p {
+  margin: 0;
 }
