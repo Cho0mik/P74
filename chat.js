@@ -130,24 +130,20 @@ function displayMessages() {
     profilePicElement.src = message.profilePic;
     profilePicElement.className = "profile-pic";
     messageElement.appendChild(profilePicElement);
+
+    const messageContent = document.createElement("div");
+    messageContent.classList.add("message-content");
+    messageContent.innerHTML = message.text || "";
     
-    // Display image if available
     if (message.imageUrl) {
       const imageElement = document.createElement("img");
       imageElement.src = message.imageUrl;
-      imageElement.style.maxWidth = "300px";
-      messageElement.appendChild(imageElement);
+      imageElement.style.maxWidth = '200px';  // Control image size
+      imageElement.style.maxHeight = '200px'; // Control image size
+      messageContent.appendChild(imageElement);
     }
 
-    // Display text message
-    if (message.text) {
-      const messageText = document.createElement("div");
-      messageText.classList.add("message-content");
-      messageText.textContent = `${message.username}: ${message.text}`;
-      messageElement.appendChild(messageText);
-    }
-
+    messageElement.appendChild(messageContent);
     chatContainer.appendChild(messageElement);
-    chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to the bottom
   });
 }
